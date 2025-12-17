@@ -1,0 +1,309 @@
+/* Base Mobile-First */
+:root {
+    --color-primario: #34495e; /* Azul oscuro */
+    --color-secundario: #ecf0f1; /* Gris claro */
+    --color-acento: #e74c3c; /* Rojo */
+    --sombra-card: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --radio-borde: 10px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #f4f7f6;
+    color: var(--color-primario);
+}
+
+/* ---------------------------------------------------- */
+/* GRID LAYOUT (MOBILE FIRST) */
+/* ---------------------------------------------------- */
+
+#grid-container {
+    display: grid;
+    /* En móvil: apilamiento simple */
+    grid-template-areas: 
+        "cabecera"
+        "menu"
+        "cuerpo"
+        "pie";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    min-height: 100vh; /* Asegura que ocupe toda la altura */
+}
+
+/* Estilos de los elementos fijos */
+#cabecera, #pie {
+    padding: 15px;
+    color: white;
+    background-color: var(--color-primario);
+    text-align: center;
+}
+
+#cabecera {
+    grid-area: cabecera;
+}
+
+
+#pie {
+    grid-area: pie;
+}
+
+#cabecera, #pie {
+    padding: 15px;
+    color: white;
+    background-color: var(--color-primario);
+    text-align: center;
+}
+
+#cabecera {
+    grid-area: cabecera;
+}
+
+#pie {
+    grid-area: pie;
+}
+
+/* --- ESTILOS DEL MENÚ LATERAL --- */
+
+#menu-lateral {
+    grid-area: menu;
+    background-color: var(--color-secundario); /* Fondo más claro para contraste */
+    color: var(--color-primario);
+    padding: 15px;
+}
+
+#menu-lateral h2 {
+    color: var(--color-acento);
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--color-acento);
+    padding-bottom: 5px;
+}
+
+#menu-lateral nav ul {
+    list-style: none; /* Elimina los puntos de la lista */
+    padding: 0;
+    margin: 0;
+    /* En móvil, los elementos de menú van en fila (para ahorrar espacio si es necesario) */
+    display: flex; 
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#menu-lateral nav ul li a {
+    display: block;
+    text-decoration: none;
+    color: var(--color-primario);
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.2s, color 0.2s;
+    font-weight: bold;
+}
+
+#menu-lateral nav ul li a:hover {
+    background-color: var(--color-acento);
+    color: white;
+}
+
+/* ---------------------------------------------------- */
+/* FLEXBOX PARA EL CUERPO PRINCIPAL (PINTEREST STYLE) */
+/* ---------------------------------------------------- */
+
+#cuerpo-principal {
+    grid-area: cuerpo;
+    display: flex;
+    flex-wrap: wrap; /* <--- ¡ESTO ES CRUCIAL! */
+    justify-content: center; 
+    gap: 15px; 
+    padding: 20px;
+}
+
+/* ---------------------------------------------------- */
+/* DISEÑO DE LA TARJETA (CARD) */
+/* ---------------------------------------------------- */
+
+.card {
+    /* En mobile, las tarjetas ocupan todo el ancho menos el padding */
+    width: 100%; 
+    max-width: 300px; /* Ancho máximo para el efecto pinterest */
+    background-color: white;
+    border-radius: var(--radio-borde);
+    box-shadow: var(--sombra-card);
+    overflow: hidden; /* Importante para el radio de borde en la imagen */
+    transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+    border: 1px solid transparent; /* Para la animación de hover */
+}
+
+/* Animación y cambio de propiedad al tener el foco */
+.card:hover {
+    transform: scale(1.02); /* Pequeña animación */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--color-acento); /* Cambio de propiedad: color del borde */
+}
+
+.card-imagen-contenedor {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-imagen-contenedor img {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* Transición suave para el oscurecimiento */
+    transition: filter 0.3s ease-in-out; 
+}
+
+/* Capa de interacción (Inicialmente oculta y transparente) */
+.card-interaccion {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Oscurecimiento (opacidad) */
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Interacción sobre la imagen (similar a Pinterest) */
+.card:hover .card-interaccion {
+    opacity: 1; /* Aparece la capa de interacción */
+}
+
+.card:hover .card-imagen-contenedor img {
+    /* Un ligero oscurecimiento adicional de la imagen */
+    filter: brightness(0.8); 
+}
+
+.card-texto-explicativo {
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.card-iconos {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.card-iconos button, .card-iconos a {
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: var(--color-primario);
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-like:hover {
+    background: #fff;
+    color: var(--color-acento);
+}
+
+.btn-enlace:hover {
+    background: #fff;
+    color: #2ecc71;
+}
+
+/* Info secundaria */
+.card-info {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-accion {
+    background-color: var(--color-acento);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-accion:hover {
+    background-color: #c0392b;
+}
+
+/* Efecto permanente al pulsar el botón (ejemplo: cambio de color) */
+.card-accionada {
+    background-color: var(--color-secundario); /* Cambio de color de fondo */
+    border: 1px solid var(--color-acento);
+}
+
+/* ---------------------------------------------------- */
+/* MEDIA QUERIES (MOBILE-FIRST) */
+/* ---------------------------------------------------- */
+
+
+/* 1. DISPOSITIVOS DE TAMAÑO MEDIO (Entre 600px y 800px) */
+/* Aplicar cambios A PARTIR de 600px */
+@media (width >= 600px) {
+
+    /* Layout: El menú lateral se coloca a la izquierda del cuerpo principal */
+    #grid-container {
+        grid-template-areas: 
+            "cabecera cabecera"
+            "menu cuerpo"
+            "pie pie";
+        /* Columna 1: Fija (ej. 150px). Columna 2: Adaptable */
+        grid-template-columns: 150px 1fr;
+    }
+
+    /* Ocultamos el título del menú para ahorrar espacio */
+    #menu-lateral h2 {
+        display: none;
+    }
+    
+    /* Cuerpo principal: Las tarjetas se muestran 2 por fila (2 columnas) */
+    .card {
+        width: calc(50% - 15px); /* Dos columnas con un poco de espacio */
+    }
+
+}
+
+
+/* 2. DISPOSITIVOS GRANDES (Más de 800px) */
+/* Aplicar cambios A PARTIR de 800px */
+@media (width >= 800px) {
+
+    /* Layout: El menú lateral permanece a la izquierda */
+    #grid-container {
+        grid-template-areas: 
+            "cabecera cabecera"
+            "menu cuerpo" 
+            "pie pie";
+        grid-template-columns: 180px 1fr; /* Mantenemos 180px para el menú */
+    }
+    
+    /* Cuerpo principal: Limitamos a un máximo de 5 tarjetas por fila */
+    .card {
+        /* Cálculo para máximo 5 tarjetas:
+        El ancho total de las 5 tarjetas + los 4 gaps entre ellas no debe superar el 100%.
+        (100% - (4 * 15px de gap)) / 5 = Ancho de cada tarjeta.
+        El valor calc(20% - 12px) es un valor que funciona bien con un gap de 15px 
+        para asegurar que NO quepa la sexta tarjeta y sí quepan 5.
+        */
+        width: calc(20% - 12px); 
+    }
+
+}
