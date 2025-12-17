@@ -134,6 +134,7 @@ body {
     overflow: hidden; /* Importante para el radio de borde en la imagen */
     transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
     border: 1px solid transparent; /* Para la animación de hover */
+    height: fit-content;
 }
 
 /* Animación y cambio de propiedad al tener el foco */
@@ -276,7 +277,7 @@ body {
     
     /* Cuerpo principal: Las tarjetas se muestran 2 por fila (2 columnas) */
     .card {
-        width: calc(50% - 15px); /* Dos columnas con un poco de espacio */
+        width: calc(50% - 20px); /* Dos columnas con un poco de espacio */
     }
 
 }
